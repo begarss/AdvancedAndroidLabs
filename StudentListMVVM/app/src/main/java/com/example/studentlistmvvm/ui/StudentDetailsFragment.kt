@@ -14,9 +14,11 @@ import com.example.studentlistmvvm.R
 import com.example.studentlistmvvm.databinding.ListFragmentBinding
 import com.example.studentlistmvvm.databinding.StudentDetailsBinding
 import com.example.studentlistmvvm.viewmodel.RepoListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StudentDetailsFragment : Fragment() {
     private lateinit var  dataBinding: StudentDetailsBinding
+    private val listViewModel : RepoListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,8 +27,7 @@ class StudentDetailsFragment : Fragment() {
     ): View? {
         dataBinding = StudentDetailsBinding.inflate(inflater, container, false).apply {
             viewmodel =
-                ViewModelProviders.of(this@StudentDetailsFragment)
-                    .get(RepoListViewModel::class.java)
+                listViewModel
             lifecycleOwner = viewLifecycleOwner
         }
 //        dataBinding = DataBindingUtil.setContentView(requireActivity(), R.layout.student_details)

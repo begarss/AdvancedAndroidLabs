@@ -12,7 +12,7 @@ object API {
     val studentListService: StudentListService =
         generateStudentService()
 
-    private fun generateStudentService(): StudentListService {
+    fun generateStudentService(): StudentListService {
         Log.i("MG", "generatePostsService")
 
         val retrofit = Retrofit.Builder()

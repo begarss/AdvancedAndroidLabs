@@ -3,13 +3,17 @@ package com.example.studentlistmvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.example.studentlistmvvm.model.dataClass.Student
 import com.example.studentlistmvvm.model.repository.RepoListRepository
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class RepoListViewModel : BaseViewModel() {
+
+class RepoListViewModel : BaseViewModel(),KoinComponent {
     val repolistLive = MutableLiveData<List<Student>>()
+    private val repository : RepoListRepository by inject()
     val student = MutableLiveData<Student>()
     fun fetchRepoList() {
         dataLoading.value = true
-        RepoListRepository.getInstance().getStudents { isSuccess, response ->
+        repository.getStudents { isSuccess, response ->
             dataLoading.value = false
             if (isSuccess) {
                 repolistLive.value = response
@@ -22,7 +26,7 @@ class RepoListViewModel : BaseViewModel() {
 
     fun fetchStudentDetails(id:Int){
         dataLoading.value = true
-        RepoListRepository.getInstance().getStudent(id){
+        repository.getStudent(id){
             isSuccess, response ->
             dataLoading.value = false
             if (isSuccess){

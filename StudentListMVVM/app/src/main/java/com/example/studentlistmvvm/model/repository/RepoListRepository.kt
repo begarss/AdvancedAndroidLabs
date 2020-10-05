@@ -7,9 +7,9 @@ import com.example.studentlistmvvm.model.dataClass.Student
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RepoListRepository {
+class RepoListRepository(private val apiService: StudentListService) {
     fun getStudents(onResult: (isSuccess: Boolean, response: List<Student>?) -> Unit) {
-        val students = API.studentListService.getStudents()
+        val students = apiService.getStudents()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ students ->
@@ -25,7 +25,7 @@ class RepoListRepository {
     }
 
     fun getStudent(id:Int,onResult: (isSuccess: Boolean, response: Student?) -> Unit) {
-        val students = API.studentListService.getStudentDetails(id)
+        val students = apiService.getStudentDetails(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ student ->
@@ -40,11 +40,5 @@ class RepoListRepository {
             })
     }
 
-    companion object {
-        private var INSTANCE: RepoListRepository? = null
-        fun getInstance() = INSTANCE
-            ?: RepoListRepository().also {
-                INSTANCE = it
-            }
-    }
+
 }

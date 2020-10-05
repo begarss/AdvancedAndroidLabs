@@ -14,16 +14,19 @@ import com.example.studentlistmvvm.TopPadding
 
 import com.example.studentlistmvvm.databinding.ListFragmentBinding
 import com.example.studentlistmvvm.model.dataClass.Student
+import com.example.studentlistmvvm.model.repository.RepoListRepository
 import com.example.studentlistmvvm.ui.adapter.Adapter
 import com.example.studentlistmvvm.ui.adapter.OnStudentListener
 import com.example.studentlistmvvm.viewmodel.RepoListViewModel
 import kotlinx.android.synthetic.main.list_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.experimental.property.inject
 
 class StudentListFragment : Fragment(), OnStudentListener {
 
     private lateinit var viewDataBinding: ListFragmentBinding
     private lateinit var adapter: Adapter
-
+    private val listViewModel : RepoListViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,10 +34,9 @@ class StudentListFragment : Fragment(), OnStudentListener {
     ): View? {
 
         viewDataBinding = ListFragmentBinding.inflate(inflater, container, false).apply {
-            viewmodel =
-                ViewModelProviders.of(this@StudentListFragment).get(RepoListViewModel::class.java)
             lifecycleOwner = viewLifecycleOwner
         }
+        viewDataBinding.viewmodel = listViewModel
         return viewDataBinding.root
     }
 
@@ -53,9 +55,7 @@ class StudentListFragment : Fragment(), OnStudentListener {
             adapter.submitList(it as ArrayList<Student>)
         })
 
-//        viewDataBinding.viewmodel.toastMessage.observe(viewLifecycleOwner, Observer {
-//            activity?.longToast(it)
-//        })
+
     }
 
     private fun setupAdapter() {
