@@ -1,0 +1,5 @@
+com/raywenderlich/android/redditclone/BuildConfig.java
+ com.raywenderlich.android.redditclone.BuildConfig
+com/raywenderlich/android/redditclone/database/RedditDatabase_Impl.java
+ com.raywenderlich.android.redditclone.database.RedditDatabase_Impl
+ com.raywenderlich.android.redditclone.database.RedditDatabase_Impl$1
